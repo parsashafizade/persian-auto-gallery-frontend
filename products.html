@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اتوگالری پارسا — لیست خودروها</title>
+
+    <!-- لینک به استایل اصلی و سپس استایل صفحه خودروها -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style_cars.css" />
+  </head>
+  <body>
+    <!-- HEADER (کپی دقیق از صفحه اصلی) -->
+    <header class="main-header fade-in">
+      <div class="header-container">
+        <div class="logo">اتوگالری پارسا</div>
+        <nav class="nav-menu">
+          <a href="index.html#hero">خانه</a>
+          <a href="products.html">محصولات</a>
+          <a href="#contact">تماس با ما</a>
+        </nav>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="جستجوی خودرو..." />
+          <button type="button" id="searchBtn">جستجو</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section id="hero" class="cars-hero">
+      <div class="hero-content fade-in-up">
+        <h1>فهرست خودروها</h1>
+      </div>
+    </section>
+
+    <!-- MAIN LAYOUT: SIDEBAR FILTERS + PRODUCTS -->
+    <main class="cars-main section">
+      <div class="cars-container">
+
+        <aside class="cars-sidebar fade-in" aria-labelledby="filtersTitle">
+          <h3 id="filtersTitle">فیلترها</h3>
+
+          <div class="filter-block">
+            <label for="pageSearch">جستجوی سریع</label>
+            <input id="pageSearch" placeholder="نام خودرو یا مدل..." />
+          </div>
+
+          <div class="filter-block">
+            <label>برند</label>
+            <div id="brandsList" class="brands-list" role="group"
+              aria-label="brands list">
+            </div>
+          </div>
+
+          <div class="filter-block range-filter">
+            <label>سال ساخت</label>
+            <div class="range-row">
+              <input type="number" id="yearMin" placeholder="از (مثال 2018)"
+                min="1900" />
+              <input type="number" id="yearMax" placeholder="تا (مثال 2025)"
+                min="1900" />
+            </div>
+          </div>
+
+          <div class="filter-block range-filter">
+            <label>قیمت (تومان)</label>
+            <div class="range-row">
+              <input type="number" id="priceMin" placeholder="حداقل" />
+              <input type="number" id="priceMax" placeholder="حداکثر" />
+            </div>
+          </div>
+
+          <div class="filter-block">
+            <label for="sortSelect">مرتب‌سازی</label>
+            <select id="sortSelect">
+              <option value="popular">محبوب‌ترین</option>
+              <option value="bestSelling">پرفروش‌ترین</option>
+              <option value="priceAsc">قیمت صعودی</option>
+              <option value="priceDesc">قیمت نزولی</option>
+              <option value="newest">جدیدترین</option>
+              <option value="oldest">قدیمی‌ترین</option>
+            </select>
+          </div>
+
+          <div class="filter-block actions-row">
+            <button id="applyFilters" class="btn">اعمال فیلترها</button>
+            <button id="resetFilters" class="btn btn-outline">بازنشانی</button>
+          </div>
+
+        </aside>
+
+        <!-- PRODUCTS -->
+        <section class="cars-grid-section fade-in-up" aria-live="polite">
+          <div class="cars-toolbar">
+            <div class="results-counter"><span id="resultsCount">0</span> خودرو
+              یافت شد</div>
+            <div class="toolbar-actions"></div>
+          </div>
+
+          <div id="carsGrid" class="product-cards-grid">
+          </div>
+
+          <div id="pagination" class="pagination" aria-label="pagination"></div>
+        </section>
+      </div>
+    </main>
+
+    <div id="quickView" class="quickview-popup" aria-hidden="true">
+      <div class="quickview-content" role="dialog" aria-modal="true"
+        aria-labelledby="qvTitle">
+        <button class="close-quickview" id="closeQuickView"
+          aria-label="بستن">&times;</button>
+        <div class="quickview-left">
+          <img id="qvImage" src alt="تصویر خودرو" />
+        </div>
+        <div class="quickview-right">
+          <h2 id="qvTitle"></h2>
+          <p id="qvDesc"></p>
+          <div class="qv-meta">
+            <div><strong>برند:</strong> <span id="qvBrand"></span></div>
+            <div><strong>سال:</strong> <span id="qvYear"></span></div>
+            <div><strong>قیمت:</strong> <span id="qvPrice"></span> تومان</div>
+            <div><strong>فروش:</strong> <span id="qvSales"></span></div>
+            <div><strong>محبوبیت:</strong> <span id="qvPopularity"></span></div>
+          </div>
+
+          <div class="qv-actions">
+            <!-- تنها دکمه سفارش مطابق فرم صفحه Home -->
+            <button id="qvOrder" class="openOrderBtn btn">سفارش</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="orderPopup" class="popup" aria-hidden="true">
+      <div class="popup-content">
+        <h3>ثبت سفارش</h3>
+        <form id="orderForm">
+          <input type="text" id="orderName" name="name"
+            placeholder="نام و نام خانوادگی" required />
+          <input type="email" id="orderEmail" name="email" placeholder="ایمیل"
+            required />
+          <input type="tel" id="orderPhone" name="phone"
+            placeholder="شماره تماس" required />
+
+          <div class="order-buttons">
+            <button type="submit" id="submitOrder">ثبت نهایی</button>
+            <button type="button" id="closePopup"
+              class="close-btn">بستن</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer id="main-footer">
+      <div class="footer-container">
+        <div class="footer-section">
+          <h3>اتوگالری پارسا</h3>
+          <p>ارائه‌دهنده بهترین خودروهای بازار با دقیق‌ترین کارشناسی، مشاوره
+            حرفه‌ای و خدمات آنلاین سریع.</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>اطلاعات تماس</h3>
+          <p>آدرس: تهران - خیابان مثال - پلاک ۱۲</p>
+          <p>تلفن: 0912-000-0000</p>
+          <p>ایمیل: info@parsa-gallery.com</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>ما را دنبال کنید</h3>
+          <div class="social-icons">
+            <img src="assets/icons/instagram.png" alt="اینستاگرام" />
+            <img src="assets/icons/youtube.png" alt="یوتیوب" />
+            <img src="assets/icons/telegram.png" alt="تلگرام" />
+            <img src="assets/icons/apple-tv2.png" alt="اپل تی‌وی" />
+            <img src="assets/icons/twitter2.png" alt="توییتر" />
+            <img src="assets/icons/google.png" alt="گوگل" />
+          </div>
+        </div>
+      </div>
+      <p class="copy">© 2025 اتوگالری پارسا - تمام حقوق محفوظ است.</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/cars.js"></script>
+  </body>
+</html>
