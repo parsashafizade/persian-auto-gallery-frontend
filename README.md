@@ -43,9 +43,3 @@ git clone https://github.com/parsashafizade/persian-auto-gallery-frontend.git
 cd persian-auto-gallery-frontend
 open index.html
 ```
-
-## Live Demo
-
-```text
-https://parsashafizade.github.io/persian-auto-gallery-frontend/
-```
